@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import PestCards from '../components/PestCards.astro';
+import NeaNote from '../components/NeaNote.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+
+import { company } from '../lib/data';
+import { urls } from '../lib/urls';
+import { meta } from '../lib/seo';
+
+const { title, description } = meta(
+  'PestToClear | Pest Control in Singapore',
+  'Pest control for homes and offices in Singapore: cockroaches, termites, bed bugs, rodents, ants and mosquitoes. One enquiry, and a partner firm quotes.',
+);
+
+const steps = [
+  {
+    title: 'Tell us the problem',
+    body: 'The pest, the property and roughly where it is. A minute on the form below.',
+  },
+  {
+    title: 'We pass it to a partner firm',
+    body: 'Usually within one working day, to a pest-control firm that handles that kind of job.',
+  },
+  {
+    title: 'The firm inspects and quotes',
+    body: 'It contacts you, inspects where the job needs it, and gives you its price.',
+  },
+  {
+    title: 'You decide',
+    body: 'If you go ahead, the firm carries out the treatment and any follow-up visits.',
+  },
+];
+
+const premises = [
+  { name: 'HDB flats', body: 'Kitchens, bathrooms, floor traps and the pests that travel between units.' },
+  { name: 'Condos', body: 'Your unit treated, and a word with the managing agent where common areas are involved.' },
+  { name: 'Landed homes', body: 'Inside, outside, the garden, drains and roof space, and regular termite checks.' },
+  { name: 'Offices', body: 'Pantries, ceilings and cabling, with work scheduled out of hours.' },
+];
+---
+
+<BaseLayout title={title} description={description} path={urls.home()} ctaHref="#quote">
+  <section class="border-b border-line bg-surface">
+    <div class="wrap py-14 sm:py-20">
+      <p class="text-sm font-semibold uppercase tracking-wide text-brand">Pest control in Singapore</p>
+      <h1 class="mt-3 max-w-3xl text-4xl font-semibold sm:text-5xl">Pests at home or at work? Tell us once, and a partner firm takes it from there.</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Cockroaches, termites, bed bugs, rats, ants and mosquitoes, in HDB flats, condos,
+        landed homes and offices. Send one enquiry and we’ll pass it to a partner
+        pest-control firm, which inspects, quotes and carries out the treatment.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#quote" class="rounded-lg bg-brand px-6 py-3.5 font-semibold text-white no-underline hover:bg-brand-dark">Ask for a quote</a>
+        <a href="#pests" class="rounded-lg bg-surface px-6 py-3.5 font-semibold text-brand no-underline ring-1 ring-line-strong hover:bg-brand-light">Find your pest</a>
+      </div>
+      <p class="mt-6 text-sm text-ink-faint">Run by the team behind {company.parentBrand}.</p>
+    </div>
+  </section>
+
+  <Section id="pests">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-semibold sm:text-3xl">What are you dealing with?</h2>
+      <p class="mt-4 text-ink-muted">
+        Each page covers what the problem looks like, the treatment options, what affects
+        the price and how to prepare.
+      </p>
+    </div>
+    <div class="mt-8">
+      <PestCards />
+    </div>
+    <p class="mt-6 text-ink-muted">
+      More than one pest, or not sure what it is? See
+      <a href={urls.pestControl()} class="text-brand underline underline-offset-2">general pest control</a>.
+    </p>
+  </Section>
+
+  <Section tone="sunk">
+    <h2 class="text-2xl font-semibold sm:text-3xl">How it works</h2>
+    <ol class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((s, i) => (
+        <li class="rounded-card border border-line bg-surface p-6">
+          <span class="flex size-8 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">{i + 1}</span>
+          <h3 class="mt-4 font-semibold">{s.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-muted">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-8 max-w-3xl text-ink-muted">
+      {company.tradingName} doesn’t carry out treatments itself: independent partner firms
+      do. <a href={urls.howItWorks()} class="text-brand underline underline-offset-2">More on how it works</a>.
+    </p>
+  </Section>
+
+  <Section>
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="text-2xl font-semibold sm:text-3xl">For homes and offices</h2>
+        <ul class="mt-8 space-y-5">
+          {premises.map((p) => (
+            <li>
+              <h3 class="font-semibold">{p.name}</h3>
+              <p class="mt-1 text-sm leading-relaxed text-ink-muted">{p.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold sm:text-3xl">About prices</h2>
+        <p class="mt-4 leading-relaxed text-ink-muted">
+          We don’t publish prices. Pest control depends on the pest, how established it is,
+          the size of the property and how many visits it takes, so the partner firm gives
+          you a price after an inspection, or from what you tell it when the job is simple.
+        </p>
+        <p class="mt-4 leading-relaxed text-ink-muted">
+          When you compare quotes, compare what’s included: the number of visits, whether
+          follow-ups are in the price, and what happens if the problem comes back.
+        </p>
+        <div class="mt-8">
+          <NeaNote />
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <QuoteSection pageName="Home" />
+</BaseLayout>

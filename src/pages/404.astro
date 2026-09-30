@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import { pests } from '../lib/data';
+import { urls } from '../lib/urls';
+import { meta } from '../lib/seo';
+
+const { title, description } = meta(
+  'Page Not Found | PestToClear',
+  'That page does not exist. Browse pest control by pest, see how PestToClear works, or send an enquiry for a quote from a partner firm.',
+);
+---
+
+<BaseLayout title={title} description={description} path={'/404/'} noindex={true}>
+  <Section narrow>
+    <h1 class="text-3xl font-semibold">Page not found</h1>
+    <p class="mt-4 text-ink-muted">That page doesn’t exist. These might help:</p>
+    <ul class="mt-6 space-y-2">
+      <li><a href={urls.home()} class="text-brand underline underline-offset-2">Home</a></li>
+      <li><a href={urls.pestControl()} class="text-brand underline underline-offset-2">Pest control in Singapore</a></li>
+      {pests.map((p) => (
+        <li><a href={urls.pest(p.slug)} class="text-brand underline underline-offset-2">{p.serviceName}</a></li>
+      ))}
+      <li><a href={urls.contact()} class="text-brand underline underline-offset-2">Ask for a quote</a></li>
+    </ul>
+  </Section>
+</BaseLayout>

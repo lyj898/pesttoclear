@@ -1,0 +1,236 @@
+---
+/**
+ * /pest-control/{pest}/
+ *
+ * One page per pest, generated from pests.json. There are deliberately no
+ * pest x town pages below these: see README.
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import FaqList from '../../components/FaqList.astro';
+import NeaNote from '../../components/NeaNote.astro';
+import QuoteSection from '../../components/QuoteSection.astro';
+
+import { pests, company } from '../../lib/data';
+import { urls } from '../../lib/urls';
+import { meta } from '../../lib/seo';
+import { pestServiceNode } from '../../lib/schema';
+import type { Pest } from '../../types';
+
+export const getStaticPaths = (() =>
+  pests.map((pest) => ({ params: { pest: pest.slug }, props: { pest } }))) satisfies GetStaticPaths;
+
+interface Props {
+  pest: Pest;
+}
+
+const { pest } = Astro.props;
+const path = urls.pest(pest.slug);
+const { title, description } = meta(pest.metaTitle, pest.metaDescription);
+const others = pests.filter((p) => p.slug !== pest.slug);
+const lower = pest.name.toLowerCase();
+
+const premises = [
+  { label: 'HDB flats', body: pest.premises.hdb },
+  { label: 'Condos', body: pest.premises.condo },
+  { label: 'Landed homes', body: pest.premises.landed },
+  { label: 'Offices', body: pest.premises.office },
+];
+
+const tick =
+  'M13.5 4.5 6.5 12 2.5 8.2';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  crumbs={[
+    { name: 'Pest control', path: urls.pestControl() },
+    { name: pest.serviceName, path },
+  ]}
+  schemaNodes={[pestServiceNode(pest, path)]}
+  ctaHref="#quote"
+>
+  <section class="border-b border-line bg-surface">
+    <div class="wrap grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+      <div>
+        <h1 class="text-3xl font-semibold sm:text-4xl lg:text-5xl">{pest.h1}</h1>
+        {pest.intro.map((p, i) => (
+          <p class={i === 0 ? 'mt-5 text-lg leading-relaxed text-ink-muted' : 'mt-4 leading-relaxed text-ink-muted'}>{p}</p>
+        ))}
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#quote" class="rounded-lg bg-brand px-6 py-3.5 font-semibold text-white no-underline hover:bg-brand-dark">
+            Ask for a quote
+          </a>
+          <a href="#treatment" class="rounded-lg bg-surface px-6 py-3.5 font-semibold text-brand no-underline ring-1 ring-line-strong hover:bg-brand-light">
+            See treatment options
+          </a>
+        </div>
+      </div>
+
+      <div class="rounded-card border border-line bg-canvas p-6">
+        <h2 class="font-semibold">On this page</h2>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a href="#signs" class="text-brand no-underline hover:underline">What the problem looks like</a></li>
+          <li><a href="#treatment" class="text-brand no-underline hover:underline">Treatment options</a></li>
+          <li><a href="#price" class="text-brand no-underline hover:underline">What affects the price</a></li>
+          <li><a href="#prepare" class="text-brand no-underline hover:underline">Preparing, and on the day</a></li>
+          <li><a href="#premises" class="text-brand no-underline hover:underline">Homes and offices</a></li>
+          <li><a href="#faq" class="text-brand no-underline hover:underline">Questions</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Section id="signs">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-semibold sm:text-3xl">What a {pest.serviceName.replace(/ (control|treatment)$/, '').toLowerCase()} problem looks like</h2>
+      <ul class="mt-8 space-y-4">
+        {pest.signs.map((s) => (
+          <li class="flex gap-3 leading-relaxed text-ink-muted">
+            <svg class="mt-1.5 shrink-0 text-brand" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={tick} /></svg>
+            <span>{s}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-8 rounded-card border border-sand-deep/40 bg-sand/40 p-5 text-sm leading-relaxed text-ink">{pest.signsNote}</p>
+    </div>
+  </Section>
+
+  <Section id="treatment" tone="sunk">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-semibold sm:text-3xl">Treatment options for {lower}</h2>
+      <p class="mt-4 text-ink-muted">
+        The partner firm recommends a treatment after seeing the property. These are the
+        methods it's likely to talk you through.
+      </p>
+    </div>
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      {pest.treatments.map((t) => (
+        <div class="rounded-card border border-line bg-surface p-6">
+          <h3 class="font-semibold">{t.name}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-muted">{t.body}</p>
+        </div>
+      ))}
+    </div>
+    <p class="mt-8 max-w-3xl text-ink-muted">{pest.treatmentNote}</p>
+    {pest.disposal && (
+      <p class="mt-4 max-w-3xl text-ink-muted">
+        If the firm advises getting rid of a mattress or sofa, wrap and seal it first.
+        <a href="https://junktoclear.com.sg/services/residential-waste-disposal-singapore/" class="text-brand underline underline-offset-2">Junk to Clear</a>,
+        run by the same team as {company.tradingName}, can collect it.
+      </p>
+    )}
+  </Section>
+
+  <Section id="price">
+    <div class="grid gap-10 lg:grid-cols-[1.3fr_1fr]">
+      <div>
+        <h2 class="text-2xl font-semibold sm:text-3xl">What affects the price</h2>
+        <p class="mt-4 text-ink-muted">
+          We don't publish prices. The partner firm gives you a price after an inspection,
+          or from what you tell it when the job is simple. These are the things it will
+          ask about.
+        </p>
+        <ul class="mt-6 space-y-3">
+          {pest.priceFactors.map((f) => (
+            <li class="flex gap-3 leading-relaxed text-ink-muted">
+              <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true"></span>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-card border border-brand/25 bg-brand-light/60 p-6 lg:mt-14">
+        <h3 class="font-semibold">Comparing quotes</h3>
+        <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+          When you compare prices, compare what's included: the number of visits, whether
+          follow-ups are in the price, what's treated, and what happens if the problem
+          comes back.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="prepare" tone="sunk">
+    <h2 class="text-2xl font-semibold sm:text-3xl">How to prepare, and what happens on the day</h2>
+    <div class="mt-8 grid gap-8 lg:grid-cols-2">
+      <div class="rounded-card border border-line bg-surface p-6">
+        <h3 class="font-semibold">Before the visit</h3>
+        <ul class="mt-4 space-y-3">
+          {pest.prepare.map((s) => (
+            <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+              <svg class="mt-1 shrink-0 text-brand" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={tick} /></svg>
+              <span>{s}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-card border border-line bg-surface p-6">
+        <h3 class="font-semibold">On the day</h3>
+        <ol class="mt-4 space-y-3">
+          {pest.onTheDay.map((s, i) => (
+            <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
+              <span class="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-light text-xs font-semibold text-brand">{i + 1}</span>
+              <span>{s}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+    <div class="mt-8 max-w-3xl">
+      <h3 class="font-semibold">Afterwards</h3>
+      <p class="mt-2 leading-relaxed text-ink-muted">{pest.afterwards}</p>
+    </div>
+  </Section>
+
+  <Section id="premises">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-semibold sm:text-3xl">{pest.name} in homes and offices</h2>
+      <p class="mt-4 text-ink-muted">
+        The same pest is a different job in a flat, a landed house or an office. Here's
+        what changes.
+      </p>
+    </div>
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      {premises.map((p) => (
+        <div class="rounded-card border border-line bg-surface p-6">
+          <h3 class="font-semibold">{p.label}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-muted">{p.body}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10 max-w-3xl">
+      <NeaNote />
+    </div>
+  </Section>
+
+  <Section id="faq" tone="sunk" narrow>
+    <h2 class="text-2xl font-semibold sm:text-3xl">Questions about {lower}</h2>
+    <div class="mt-8">
+      <FaqList faqs={pest.faqs} />
+    </div>
+  </Section>
+
+  <QuoteSection pageName={pest.serviceName} pest={pest.slug} heading={`Ask for a ${pest.serviceName.toLowerCase()} quote`} />
+
+  <Section>
+    <h2 class="text-xl font-semibold">Other pests</h2>
+    <ul class="mt-5 flex flex-wrap gap-3">
+      {others.map((o) => (
+        <li>
+          <a href={urls.pest(o.slug)} class="inline-block rounded-lg bg-surface px-4 py-2 text-sm font-medium text-brand no-underline ring-1 ring-line-strong hover:bg-brand-light">
+            {o.serviceName}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href={urls.pestControl()} class="inline-block rounded-lg bg-surface px-4 py-2 text-sm font-medium text-brand no-underline ring-1 ring-line-strong hover:bg-brand-light">
+          General pest control
+        </a>
+      </li>
+    </ul>
+  </Section>
+</BaseLayout>

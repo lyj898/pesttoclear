@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import FaqList from '../components/FaqList.astro';
+import NeaNote from '../components/NeaNote.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+import { company } from '../lib/data';
+import { urls } from '../lib/urls';
+import { meta } from '../lib/seo';
+
+const path = urls.howItWorks();
+const { title, description } = meta(
+  'How PestToClear Works | Pest Control Singapore',
+  'How a PestToClear enquiry works: what we do, what the partner pest-control firm does, how you get a price, and what you pay. No obligation to book.',
+);
+
+const steps = [
+  {
+    title: 'You send an enquiry',
+    body: 'Through the form on any page: the pest, the property type, the area, when you need it, and a phone or WhatsApp number. Add anything else that helps, such as where you’re seeing the pest and for how long.',
+  },
+  {
+    title: 'We read it and pass it on',
+    body: `The team behind ${company.parentBrand} reads every enquiry, usually within one working day, and passes it to a partner pest-control firm that handles that pest and that kind of property. If something is unclear, we may contact you first.`,
+  },
+  {
+    title: 'The firm contacts you',
+    body: 'The firm gets in touch to ask about the problem and arrange a time. Simple jobs can sometimes be priced from a description and photos; most need an inspection first.',
+  },
+  {
+    title: 'You get a price',
+    body: 'The price comes from the firm, after an inspection or from what you’ve told it. It should say what’s included: the treatment, the number of visits and any follow-ups.',
+  },
+  {
+    title: 'You decide',
+    body: 'There’s no obligation to go ahead. If you do, you book with the firm, and it carries out the treatment and any follow-up visits.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Who carries out the treatment?',
+    a: `An independent partner pest-control firm. ${company.tradingName} is a matching service: we don’t send anyone to your home or office ourselves.`,
+  },
+  {
+    q: 'Do I pay PestToClear anything?',
+    a: 'No. The price you pay is the one the partner firm quotes you.',
+  },
+  {
+    q: 'Why don’t you show prices?',
+    a: 'Because the honest answer depends on the pest, how established it is, the property and how many visits it takes. Rather than publish figures that might not match your job, we let the firm quote once it knows what the job is.',
+  },
+  {
+    q: 'What if I’m not happy with the treatment?',
+    a: 'Tell the firm first, since it carried out the work and most treatments include follow-up visits. If that doesn’t resolve it, tell us through the contact form and we’ll take it up with the firm.',
+  },
+  {
+    q: 'What happens to my details?',
+    a: `They go to the team behind ${company.parentBrand}, which passes them to the partner firm that will quote you. They’re used only for your enquiry and aren’t sold. The privacy policy has the details.`,
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  crumbs={[{ name: 'How it works', path }]}
+>
+  <section class="border-b border-line bg-surface">
+    <div class="wrap py-12 sm:py-16">
+      <h1 class="max-w-3xl text-3xl font-semibold sm:text-4xl lg:text-5xl">How it works</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        {company.tradingName} is a matching service. You tell us about the pest problem, and
+        we pass it to a partner pest-control firm, which inspects, quotes and carries out
+        the treatment.
+      </p>
+    </div>
+  </section>
+
+  <Section narrow>
+    <ol class="space-y-8">
+      {steps.map((s, i) => (
+        <li class="flex gap-5">
+          <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">{i + 1}</span>
+          <div>
+            <h2 class="text-xl font-semibold">{s.title}</h2>
+            <p class="mt-2 leading-relaxed text-ink-muted">{s.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Section>
+
+  <Section tone="sunk">
+    <div class="grid gap-8 lg:grid-cols-2">
+      <div class="rounded-card border border-line bg-surface p-6">
+        <h2 class="text-lg font-semibold">What we do</h2>
+        <ul class="mt-4 space-y-2 text-sm leading-relaxed text-ink-muted">
+          <li>Read your enquiry and check we understand the job.</li>
+          <li>Pass it to a partner firm that handles that pest and property.</li>
+          <li>Take it up with the firm if something goes wrong and you can’t resolve it directly.</li>
+        </ul>
+      </div>
+      <div class="rounded-card border border-line bg-surface p-6">
+        <h2 class="text-lg font-semibold">What the partner firm does</h2>
+        <ul class="mt-4 space-y-2 text-sm leading-relaxed text-ink-muted">
+          <li>Contacts you and inspects where the job needs it.</li>
+          <li>Recommends a treatment and gives you its price.</li>
+          <li>Carries out the treatment and any follow-up visits.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-8 max-w-3xl">
+      <NeaNote />
+    </div>
+  </Section>
+
+  <Section narrow>
+    <h2 class="text-2xl font-semibold sm:text-3xl">Questions</h2>
+    <div class="mt-8">
+      <FaqList faqs={faqs} />
+    </div>
+    <p class="mt-8 text-ink-muted">
+      Start with your pest:
+      <a href={urls.pestControl()} class="text-brand underline underline-offset-2">pest control in Singapore</a>.
+    </p>
+  </Section>
+
+  <CtaBand heading="Ready to deal with it?" body="Send one enquiry and a partner pest-control firm will be in touch." />
+</BaseLayout>

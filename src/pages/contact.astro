@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { company } from '../lib/data';
+import { urls } from '../lib/urls';
+import { meta } from '../lib/seo';
+
+const path = urls.contact();
+const { title, description } = meta(
+  'Contact PestToClear | Get a Pest Control Quote',
+  'Ask for a pest control quote in Singapore. Tell us the pest, the property and the area, and a partner pest-control firm will contact you.',
+);
+---
+
+<BaseLayout title={title} description={description} path={path} crumbs={[{ name: 'Contact', path }]} ctaHref="#main">
+  <section class="border-b border-line bg-surface">
+    <div class="wrap py-12 sm:py-16">
+      <h1 class="max-w-3xl text-3xl font-semibold sm:text-4xl lg:text-5xl">Ask for a pest control quote</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        Tell us about the problem and we’ll pass it to a partner pest-control firm, which
+        will contact you, inspect if needed and give you its price. There’s no obligation
+        to book.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap grid gap-12 py-12 sm:py-16 lg:grid-cols-[1.5fr_1fr]">
+    <div>
+      <LeadForm pageName="Contact" />
+    </div>
+
+    <aside class="space-y-6">
+      <div class="rounded-card border border-line bg-surface p-6">
+        <h2 class="font-semibold">What helps the firm quote</h2>
+        <ul class="mt-4 space-y-2 text-sm text-ink-muted">
+          <li>Where you’re seeing the pest, and for how long</li>
+          <li>How big the property is, and which rooms are affected</li>
+          <li>Anything you’ve already tried</li>
+          <li>Children, pets or anyone with asthma at home</li>
+        </ul>
+        <p class="mt-4 text-sm leading-relaxed text-ink-muted">
+          Not sure what the pest is? Describe it. The
+          <a href={urls.pestControl()} class="text-brand no-underline hover:underline">pest pages</a>
+          list the signs of each.
+        </p>
+      </div>
+
+      <div class="rounded-card border border-line bg-surface p-6">
+        <h2 class="font-semibold">Response time</h2>
+        <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+          We usually reply within one working day.<br />
+          {company.operatingHoursDisplay}
+        </p>
+      </div>
+
+      <div class="rounded-card border border-line bg-surface-sunk p-6">
+        <h2 class="font-semibold">What happens to your details</h2>
+        <p class="mt-2 text-sm leading-relaxed text-ink-muted">
+          They go to the team behind {company.parentBrand}, which passes them to the partner
+          pest-control firm that will quote you. They aren’t sold or passed to anyone else.
+          See the <a href={urls.privacy()} class="text-brand underline underline-offset-2">privacy policy</a>.
+        </p>
+      </div>
+    </aside>
+  </div>
+</BaseLayout>

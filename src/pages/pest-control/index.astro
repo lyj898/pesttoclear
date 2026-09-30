@@ -1,0 +1,177 @@
+---
+/**
+ * /pest-control/
+ *
+ * General pest control: the hub for the pest pages, and the page for people
+ * who want a general treatment or aren't sure what they have.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/Section.astro';
+import PestCards from '../../components/PestCards.astro';
+import NeaNote from '../../components/NeaNote.astro';
+import FaqList from '../../components/FaqList.astro';
+import QuoteSection from '../../components/QuoteSection.astro';
+
+import { urls } from '../../lib/urls';
+import { meta } from '../../lib/seo';
+import { serviceNode } from '../../lib/schema';
+
+const path = urls.pestControl();
+const { title, description } = meta(
+  'Pest Control Singapore | Homes & Offices',
+  'Pest control in Singapore for HDB flats, condos, landed homes and offices. One enquiry, passed to a partner pest-control firm that inspects and quotes.',
+);
+
+const summary =
+  'General pest control for homes and offices in Singapore, arranged through a partner pest-control firm that inspects, quotes and treats.';
+
+const priceFactors = [
+  'Which pests, and how established they are.',
+  'The size and type of property, and how many areas need treating.',
+  'The treatment methods, and how many visits they take.',
+  'Whether it is a one-off treatment or a regular service.',
+  'Access, and whether the work has to be done out of hours.',
+];
+
+const general = [
+  {
+    name: 'One-off treatment',
+    body: 'An inspection and treatment for a problem you have now, with any follow-up visits the pest needs. Most homes start here.',
+  },
+  {
+    name: 'Regular service',
+    body: 'Scheduled visits, often monthly or quarterly, that inspect and treat for the common pests before they become a problem. Offices and landed homes near greenery often choose this.',
+  },
+  {
+    name: 'Before moving in',
+    body: 'A treatment while a home is empty, before furniture goes in, when every cabinet and corner is easy to reach.',
+  },
+  {
+    name: 'Not sure what it is',
+    body: 'Droppings, bites or damage you can’t identify. Describe what you’re seeing, add a photo if you can, and the firm will work out what it is on inspection.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'What does general pest control cover?',
+    a: 'Usually the common crawling pests, such as cockroaches and ants, and often a check for rodents and mosquito breeding. Termites and bed bugs normally need their own treatment. Ask the firm exactly which pests its general treatment covers.',
+  },
+  {
+    q: 'Do I need to be home during treatment?',
+    a: 'Usually someone needs to let the firm in and show it the problem areas. For some treatments you’ll be asked to stay out of treated rooms for a while afterwards. The firm will tell you when it books the visit.',
+  },
+  {
+    q: 'Is pest control safe with children and pets?',
+    a: 'Firms choose methods and placements to suit the household, such as baits in cracks or locked stations rather than open sprays. Tell the firm about children, pets, fish tanks and anyone with asthma when you book.',
+  },
+  {
+    q: 'What if my pest isn’t listed?',
+    a: 'Send an enquiry anyway and describe what you’re seeing. We’ll check whether a partner firm handles it and tell you either way.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  crumbs={[{ name: 'Pest control', path }]}
+  schemaNodes={[serviceNode('Pest control', summary, path)]}
+  ctaHref="#quote"
+>
+  <section class="border-b border-line bg-surface">
+    <div class="wrap py-12 sm:py-16">
+      <h1 class="max-w-3xl text-3xl font-semibold sm:text-4xl lg:text-5xl">Pest control in Singapore</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
+        For HDB flats, condos, landed homes and offices. Tell us what you’re dealing with
+        and we’ll pass it to a partner pest-control firm, which inspects, quotes and carries
+        out the treatment.
+      </p>
+      <p class="mt-4 max-w-2xl leading-relaxed text-ink-muted">
+        Know the pest? Go straight to its page for the signs, the treatment options and how
+        to prepare. Not sure, or dealing with more than one? A general treatment may suit.
+      </p>
+      <div class="mt-8">
+        <a href="#quote" class="rounded-lg bg-brand px-6 py-3.5 font-semibold text-white no-underline hover:bg-brand-dark">Ask for a quote</a>
+      </div>
+    </div>
+  </section>
+
+  <Section>
+    <h2 class="text-2xl font-semibold sm:text-3xl">Treatment by pest</h2>
+    <div class="mt-8">
+      <PestCards />
+    </div>
+  </Section>
+
+  <Section tone="sunk">
+    <div class="max-w-3xl">
+      <h2 class="text-2xl font-semibold sm:text-3xl">General pest control</h2>
+      <p class="mt-4 text-ink-muted">
+        Not every job is one pest. These are the usual ways a general treatment is set up.
+      </p>
+    </div>
+    <div class="mt-8 grid gap-5 md:grid-cols-2">
+      {general.map((g) => (
+        <div class="rounded-card border border-line bg-surface p-6">
+          <h3 class="font-semibold">{g.name}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-muted">{g.body}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section>
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 class="text-2xl font-semibold sm:text-3xl">Homes and offices</h2>
+        <p class="mt-4 leading-relaxed text-ink-muted">
+          <strong class="font-semibold text-ink">HDB flats and condos.</strong> Pests often
+          travel between units through drains, pipes and service ducts, so treatment focuses
+          on the kitchen, bathrooms and entry points. Common areas belong to the town council
+          or the management corporation, and it helps to tell them if neighbours have the
+          same problem.
+        </p>
+        <p class="mt-4 leading-relaxed text-ink-muted">
+          <strong class="font-semibold text-ink">Landed homes.</strong> Gardens, drains, roof
+          spaces and a house that sits on soil mean more ways in, so treatment usually covers
+          the outside as well as the inside, and termites deserve a regular check.
+        </p>
+        <p class="mt-4 leading-relaxed text-ink-muted">
+          <strong class="font-semibold text-ink">Offices.</strong> Pantries, bins, ceilings and
+          cabling are the usual trouble spots. Work can usually be scheduled out of hours, and
+          many offices keep a regular service. If you lease the space, involve building
+          management.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold sm:text-3xl">What affects the price</h2>
+        <p class="mt-4 text-ink-muted">
+          We don’t publish prices. The partner firm gives you a price after an inspection,
+          or from what you tell it when the job is simple. It depends on:
+        </p>
+        <ul class="mt-6 space-y-3">
+          {priceFactors.map((f) => (
+            <li class="flex gap-3 leading-relaxed text-ink-muted">
+              <span class="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true"></span>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="mt-12 max-w-3xl">
+      <NeaNote />
+    </div>
+  </Section>
+
+  <Section tone="sunk" narrow>
+    <h2 class="text-2xl font-semibold sm:text-3xl">Questions</h2>
+    <div class="mt-8">
+      <FaqList faqs={faqs} />
+    </div>
+  </Section>
+
+  <QuoteSection pageName="Pest control" />
+</BaseLayout>

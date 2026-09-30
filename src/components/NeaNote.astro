@@ -1,0 +1,23 @@
+---
+/**
+ * The licensing fact, with its official source.
+ *
+ * Family rule: say a firm is NEA-licensed only with an NEA source linked, and
+ * only once that firm has been checked. No partner has been checked yet, so
+ * this states the law and tells the reader how to check. It makes no claim
+ * about any particular firm. Source checked on the date in company.json.
+ */
+import { company } from '../lib/data';
+---
+
+<div class="rounded-card border border-line bg-surface p-6">
+  <h2 class="text-lg font-semibold">Pest control and NEA licensing</h2>
+  <p class="mt-3 text-sm leading-relaxed text-ink-muted">
+    In Singapore, companies that do vector control work, which covers pests such as
+    mosquitoes, rats and cockroaches, must be registered with the National Environment
+    Agency (NEA) as Vector Control Operators. The people doing the work must hold NEA
+    licences or certificates. Before work starts, you can ask the firm for its
+    registration details and check them against
+    <a href={company.nea.vcoUrl} class="text-brand underline underline-offset-2">NEA's list of registered operators</a>.
+  </p>
+</div>

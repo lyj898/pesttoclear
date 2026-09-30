@@ -1,0 +1,19 @@
+---
+/** Grid of links to the pest pages. Used on the home and general pest-control pages. */
+import { pests } from '../lib/data';
+import { urls } from '../lib/urls';
+---
+
+<ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  {pests.map((p) => (
+    <li>
+      <a
+        href={urls.pest(p.slug)}
+        class="group block h-full rounded-card border border-line bg-surface p-6 no-underline transition-colors hover:border-brand/40"
+      >
+        <h3 class="font-semibold text-ink group-hover:text-brand">{p.serviceName} &rarr;</h3>
+        <p class="mt-2 text-sm leading-relaxed text-ink-muted">{p.signs[0]}</p>
+      </a>
+    </li>
+  ))}
+</ul>

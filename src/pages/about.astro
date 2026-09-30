@@ -1,0 +1,79 @@
+---
+/**
+ * /about/
+ *
+ * Says plainly that this is a matching service run by the team behind Junk to
+ * Clear. The one link to Junk to Clear lives here, not in the footer.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import NeaNote from '../components/NeaNote.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+import { company } from '../lib/data';
+import { urls } from '../lib/urls';
+import { meta } from '../lib/seo';
+
+const path = urls.about();
+const { title, description } = meta(
+  'About PestToClear | Run by the Team Behind Junk to Clear',
+  'PestToClear is a pest-control matching service in Singapore, run by the team behind Junk to Clear. Partner firms inspect, quote and treat.',
+);
+---
+
+<BaseLayout title={title} description={description} path={path} crumbs={[{ name: 'About', path }]}>
+  <section class="border-b border-line bg-surface">
+    <div class="wrap-narrow py-12 sm:py-16">
+      <h1 class="text-3xl font-semibold sm:text-4xl lg:text-5xl">About {company.tradingName}</h1>
+      <p class="mt-5 text-lg leading-relaxed text-ink-muted">
+        {company.tradingName} is a pest-control matching service for homes and offices in
+        Singapore, run by the team behind
+        <a href={company.parentBrandUrl} class="text-brand underline underline-offset-2">{company.parentBrand}</a>.
+      </p>
+    </div>
+  </section>
+
+  <Section narrow>
+    <div class="prose-pc text-ink-muted">
+      <h2 class="text-ink">What we do</h2>
+      <p>
+        Finding a pest-control firm usually means searching, calling round and explaining
+        the same problem several times. {company.tradingName} makes it one step: you tell us
+        about the pest and the property, and we pass your enquiry to a partner pest-control
+        firm that handles that kind of job.
+      </p>
+      <p>
+        The partner firm contacts you, inspects where the job needs it, gives you its price
+        and, if you go ahead, carries out the treatment. {company.tradingName} doesn’t carry
+        out treatments itself, and you don’t pay us anything: the price you pay is the
+        firm’s.
+      </p>
+
+      <h2 class="text-ink">Who we are</h2>
+      <p>
+        {company.tradingName} is run by the team behind {company.parentBrand}, which has
+        handled disposal and clearance jobs for households and businesses in Singapore since
+        {company.yearEstablished}. The same team reads every enquiry that comes through this
+        site and follows it up with the partner firm.
+      </p>
+
+      <h2 class="text-ink">What we won’t do</h2>
+      <ul class="list-disc space-y-2 pl-5">
+        <li>Publish prices we can’t stand behind. The firm quotes once it knows the job.</li>
+        <li>Post reviews or ratings we haven’t collected.</li>
+        <li>Sell your details. They go only to the firm that will quote you.</li>
+      </ul>
+    </div>
+
+    <div class="mt-10">
+      <NeaNote />
+    </div>
+
+    <p class="mt-10 text-ink-muted">
+      See <a href={urls.howItWorks()} class="text-brand underline underline-offset-2">how it works</a>,
+      or go straight to <a href={urls.pestControl()} class="text-brand underline underline-offset-2">pest control by pest</a>.
+    </p>
+  </Section>
+
+  <CtaBand heading="Tell us what you’re dealing with" body="One enquiry, passed to a partner pest-control firm that will quote you." />
+</BaseLayout>
