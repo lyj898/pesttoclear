@@ -1,5 +1,5 @@
 ---
-/** Grid of links to the pest pages. Used on the home and general pest-control pages. */
+/** Grid of illustrated links to the pest pages. Used on the home and general pest-control pages. */
 import { pests } from '../lib/data';
 import { urls } from '../lib/urls';
 ---
@@ -9,10 +9,23 @@ import { urls } from '../lib/urls';
     <li>
       <a
         href={urls.pest(p.slug)}
-        class="group block h-full rounded-card border border-line bg-surface p-6 no-underline transition-colors hover:border-brand/40"
+        class="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface no-underline transition-colors hover:border-brand/40"
       >
-        <h3 class="font-semibold text-ink group-hover:text-brand">{p.serviceName} &rarr;</h3>
-        <p class="mt-2 text-sm leading-relaxed text-ink-muted">{p.signs[0]}</p>
+        <div class="border-b border-line bg-canvas px-6 pt-4">
+          <img
+            src={`/illo/${p.slug}.svg`}
+            alt=""
+            width="320"
+            height="220"
+            loading="lazy"
+            decoding="async"
+            class="mx-auto h-40 w-auto transition-transform duration-200 group-hover:scale-[1.03]"
+          />
+        </div>
+        <div class="p-6">
+          <h3 class="font-semibold text-ink group-hover:text-brand">{p.serviceName} &rarr;</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-muted">{p.signs[0]}</p>
+        </div>
       </a>
     </li>
   ))}

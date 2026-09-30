@@ -6,6 +6,14 @@
 import LeadForm from './LeadForm.astro';
 import { company } from '../lib/data';
 import { urls } from '../lib/urls';
+import Icon from './Icon.astro';
+
+const next = [
+  { icon: 'message', text: 'We read your enquiry, usually within one working day.' },
+  { icon: 'share', text: 'We pass it to a partner pest-control firm that handles this kind of job.' },
+  { icon: 'search', text: 'The firm contacts you, inspects if needed, and gives you its price.' },
+  { icon: 'check', text: 'You decide whether to go ahead.' },
+] as const;
 
 interface Props {
   pageName: string;
@@ -32,11 +40,13 @@ const { pageName, pest, heading = 'Ask for a quote' } = Astro.props;
     <aside class="space-y-6 lg:pt-2">
       <div class="rounded-card border border-line bg-canvas p-6">
         <h3 class="font-semibold">What happens next</h3>
-        <ol class="mt-4 space-y-3 text-sm leading-relaxed text-ink-muted">
-          <li><strong class="font-semibold text-ink">1.</strong> We read your enquiry, usually within one working day.</li>
-          <li><strong class="font-semibold text-ink">2.</strong> We pass it to a partner pest-control firm that handles this kind of job.</li>
-          <li><strong class="font-semibold text-ink">3.</strong> The firm contacts you, inspects if needed, and gives you its price.</li>
-          <li><strong class="font-semibold text-ink">4.</strong> You decide whether to go ahead.</li>
+        <ol class="mt-4 space-y-4 text-sm leading-relaxed text-ink-muted">
+          {next.map((n) => (
+            <li class="flex items-start gap-3">
+              <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand"><Icon name={n.icon} size={20} /></span>
+              <span class="pt-1.5">{n.text}</span>
+            </li>
+          ))}
         </ol>
         <p class="mt-4 text-sm">
           <a href={urls.howItWorks()} class="text-brand underline underline-offset-2">More on how it works</a>

@@ -4,6 +4,7 @@ import Section from '../components/Section.astro';
 import FaqList from '../components/FaqList.astro';
 import NeaNote from '../components/NeaNote.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
 
 import { company } from '../lib/data';
 import { urls } from '../lib/urls';
@@ -17,26 +18,31 @@ const { title, description } = meta(
 
 const steps = [
   {
+    icon: 'message',
     title: 'You send an enquiry',
     body: 'Through the form on any page: the pest, the property type, the area, when you need it, and a phone or WhatsApp number. Add anything else that helps, such as where you’re seeing the pest and for how long.',
   },
   {
+    icon: 'share',
     title: 'We read it and pass it on',
     body: `The team behind ${company.parentBrand} reads every enquiry, usually within one working day, and passes it to a partner pest-control firm that handles that pest and that kind of property. If something is unclear, we may contact you first.`,
   },
   {
+    icon: 'search',
     title: 'The firm contacts you',
     body: 'The firm gets in touch to ask about the problem and arrange a time. Simple jobs can sometimes be priced from a description and photos; most need an inspection first.',
   },
   {
+    icon: 'tag',
     title: 'You get a price',
     body: 'The price comes from the firm, after an inspection or from what you’ve told it. It should say what’s included: the treatment, the number of visits and any follow-ups.',
   },
   {
+    icon: 'check',
     title: 'You decide',
     body: 'There’s no obligation to go ahead. If you do, you book with the firm, and it carries out the treatment and any follow-up visits.',
   },
-];
+] as const;
 
 const faqs = [
   {
@@ -79,9 +85,9 @@ const faqs = [
     <ol class="space-y-8">
       {steps.map((s, i) => (
         <li class="flex gap-5">
-          <span class="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand text-sm font-semibold text-white">{i + 1}</span>
+          <span class="relative flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand"><Icon name={s.icon} size={26} /><span class="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-brand text-2xs font-semibold text-white">{i + 1}</span></span>
           <div>
-            <h2 class="text-xl font-semibold">{s.title}</h2>
+            <h2 class="pt-2.5 text-xl font-semibold">{s.title}</h2>
             <p class="mt-2 leading-relaxed text-ink-muted">{s.body}</p>
           </div>
         </li>

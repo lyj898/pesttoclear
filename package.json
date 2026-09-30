@@ -10,7 +10,8 @@
     "check": "astro check",
     "validate": "node scripts/validate-data.mjs",
     "audit": "node scripts/audit-build.mjs",
-    "verify": "npm run build && npm run audit"
+    "verify": "npm run build && npm run audit",
+    "illo": "node scripts/illustrations.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.10",

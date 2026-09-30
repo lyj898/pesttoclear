@@ -12,6 +12,7 @@
 //   - any page mentioning NEA links an official nea.gov.sg source
 //   - the only custom GA4 event is generate_lead; no button_click
 //   - form subjects are "PestToClear – <page>"; the inbox appears only in the endpoint
+//   - every image exists, with alt, width and height
 //   - no links to family sites in the header or footer; no rel="noreferrer" on them
 
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
@@ -212,6 +213,19 @@ for (const p of pages.values()) {
 for (const p of pages.values()) {
   if (p.route === '/' || p.route === '/404.html') continue;
   if (!linkedTo.has(p.route)) warn(`${p.route}: orphan, no internal page links to it`);
+}
+
+// --- images -----------------------------------------------------------------
+// Every image must exist in the build and carry an alt attribute (empty for
+// decorative ones, which the illustrations on the pest cards are).
+for (const p of pages.values()) {
+  for (const [tag] of p.html.matchAll(/<img[^>]*>/g)) {
+    const src = (tag.match(/src="([^"]+)"/) ?? [])[1];
+    if (!src) err(`${p.route}: <img> without src`);
+    else if (src.startsWith('/') && !existsSync(join(dist, src.split('?')[0]))) err(`${p.route}: image ${src} is not in the build`);
+    if (!/alt="/.test(tag)) err(`${p.route}: <img> without alt: ${src}`);
+    if (!/width="/.test(tag) || !/height="/.test(tag)) err(`${p.route}: <img> without width and height (layout shift): ${src}`);
+  }
 }
 
 // --- family links -------------------------------------------------------------

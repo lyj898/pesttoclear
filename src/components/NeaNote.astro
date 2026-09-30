@@ -8,9 +8,12 @@
  * about any particular firm. Source checked on the date in company.json.
  */
 import { company } from '../lib/data';
+import Icon from './Icon.astro';
 ---
 
-<div class="rounded-card border border-line bg-surface p-6">
+<div class="flex gap-4 rounded-card border border-line bg-surface p-6">
+  <span class="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand"><Icon name="shield" /></span>
+  <div>
   <h2 class="text-lg font-semibold">Pest control and NEA licensing</h2>
   <p class="mt-3 text-sm leading-relaxed text-ink-muted">
     In Singapore, companies that do vector control work, which covers pests such as
@@ -20,4 +23,5 @@ import { company } from '../lib/data';
     registration details and check them against
     <a href={company.nea.vcoUrl} class="text-brand underline underline-offset-2">NEA's list of registered operators</a>.
   </p>
+  </div>
 </div>

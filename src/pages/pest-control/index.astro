@@ -11,6 +11,7 @@ import PestCards from '../../components/PestCards.astro';
 import NeaNote from '../../components/NeaNote.astro';
 import FaqList from '../../components/FaqList.astro';
 import QuoteSection from '../../components/QuoteSection.astro';
+import Icon from '../../components/Icon.astro';
 
 import { urls } from '../../lib/urls';
 import { meta } from '../../lib/seo';
@@ -35,22 +36,26 @@ const priceFactors = [
 
 const general = [
   {
+    icon: 'check',
     name: 'One-off treatment',
     body: 'An inspection and treatment for a problem you have now, with any follow-up visits the pest needs. Most homes start here.',
   },
   {
+    icon: 'calendar',
     name: 'Regular service',
     body: 'Scheduled visits, often monthly or quarterly, that inspect and treat for the common pests before they become a problem. Offices and landed homes near greenery often choose this.',
   },
   {
+    icon: 'landed',
     name: 'Before moving in',
     body: 'A treatment while a home is empty, before furniture goes in, when every cabinet and corner is easy to reach.',
   },
   {
+    icon: 'search',
     name: 'Not sure what it is',
     body: 'Droppings, bites or damage you can’t identify. Describe what you’re seeing, add a photo if you can, and the firm will work out what it is on inspection.',
   },
-];
+] as const;
 
 const faqs = [
   {
@@ -115,7 +120,8 @@ const faqs = [
     <div class="mt-8 grid gap-5 md:grid-cols-2">
       {general.map((g) => (
         <div class="rounded-card border border-line bg-surface p-6">
-          <h3 class="font-semibold">{g.name}</h3>
+          <span class="flex size-11 items-center justify-center rounded-lg bg-sand/60 text-brand-dark"><Icon name={g.icon} /></span>
+          <h3 class="mt-3 font-semibold">{g.name}</h3>
           <p class="mt-2 text-sm leading-relaxed text-ink-muted">{g.body}</p>
         </div>
       ))}

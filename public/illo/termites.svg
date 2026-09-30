@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" width="320" height="220">
+<path d="M46 126C36 70 94 30 164 30c72 0 124 34 120 96-4 58-64 78-128 78-58 0-100-24-110-78z" fill="#E4EDE3"/>
+  <ellipse cx="164" cy="184" rx="122" ry="7" fill="#CFDCCD"/>
+  <rect x="58" y="158" width="222" height="24" rx="2" fill="#EDE3CF"/>
+  <rect x="58" y="158" width="222" height="4" fill="#E1D8C7"/>
+  <rect x="156" y="36" width="40" height="146" rx="2" fill="#D9A86C"/>
+  <rect x="186" y="36" width="10" height="146" fill="#C4935A"/>
+  <rect x="166" y="62" width="10" height="22" rx="5" fill="#A8743F"/>
+  <rect x="164" y="98" width="14" height="30" rx="7" fill="#A8743F"/>
+  <rect x="172" y="138" width="8" height="16" rx="4" fill="#A8743F"/>
+  <path d="M120 182c-2-18 8-26 18-36s12-26 16-44 4-32 6-40" stroke="#9C6B43" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M120 182c-2-18 8-26 18-36s12-26 16-44 4-32 6-40" stroke="#B88657" stroke-width="3" stroke-dasharray="2 7" fill="none" stroke-linecap="round"/>
+  
+  <g transform="translate(232 176) rotate(-8)">
+    <path d="M-4-3l-6-4M-4 3l-6 4M0-4l0-7M0 4l0 7M4-3l6-5M4 3l6 5" stroke="#B7A488" stroke-width="1.6" stroke-linecap="round"/>
+    <ellipse cx="11" cy="0" rx="9" ry="5.5" fill="#F1E2C4"/>
+    <ellipse cx="0" cy="0" rx="4.5" ry="3.8" fill="#F1E2C4"/>
+    <ellipse cx="-8" cy="0" rx="5.5" ry="4.5" fill="#C9764B"/>
+  </g>
+  
+  <g transform="translate(266 170) rotate(14)">
+    <path d="M-4-3l-6-4M-4 3l-6 4M0-4l0-7M0 4l0 7M4-3l6-5M4 3l6 5" stroke="#B7A488" stroke-width="1.6" stroke-linecap="round"/>
+    <ellipse cx="11" cy="0" rx="9" ry="5.5" fill="#F1E2C4"/>
+    <ellipse cx="0" cy="0" rx="4.5" ry="3.8" fill="#F1E2C4"/>
+    <ellipse cx="-8" cy="0" rx="5.5" ry="4.5" fill="#C9764B"/>
+  </g>
+  <g fill="#FBF8F1" stroke="#C8BBA3" stroke-width="1.5">
+    <ellipse cx="88" cy="174" rx="16" ry="4" transform="rotate(-12 88 174)"/>
+    <ellipse cx="92" cy="179" rx="16" ry="4" transform="rotate(6 92 179)"/>
+    <ellipse cx="226" cy="146" rx="14" ry="3.5" transform="rotate(20 226 146)"/>
+  </g>
+</svg>

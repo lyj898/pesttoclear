@@ -11,6 +11,7 @@ import Section from '../../components/Section.astro';
 import FaqList from '../../components/FaqList.astro';
 import NeaNote from '../../components/NeaNote.astro';
 import QuoteSection from '../../components/QuoteSection.astro';
+import Icon from '../../components/Icon.astro';
 
 import { pests, company } from '../../lib/data';
 import { urls } from '../../lib/urls';
@@ -32,11 +33,30 @@ const others = pests.filter((p) => p.slug !== pest.slug);
 const lower = pest.name.toLowerCase();
 
 const premises = [
-  { label: 'HDB flats', body: pest.premises.hdb },
-  { label: 'Condos', body: pest.premises.condo },
-  { label: 'Landed homes', body: pest.premises.landed },
-  { label: 'Offices', body: pest.premises.office },
-];
+  { icon: 'hdb', label: 'HDB flats', body: pest.premises.hdb },
+  { icon: 'condo', label: 'Condos', body: pest.premises.condo },
+  { icon: 'landed', label: 'Landed homes', body: pest.premises.landed },
+  { icon: 'office', label: 'Offices', body: pest.premises.office },
+] as const;
+
+/** Describes each pest illustration in public/illo/ for screen readers. */
+const illoAlt: Record<string, string> = {
+  cockroaches: 'A brown cockroach with two dark stripes behind its head, next to a floor trap',
+  termites: 'A mud tube climbing a wooden door frame, with termites and shed wings on the floor',
+  'bed-bugs': 'A bed with droppings along the mattress seam, and a bed bug under a magnifying glass',
+  rodents: 'A rat beside a gnawed hole in the skirting board, with crumbs on the floor',
+  ants: 'A trail of ants leading to a sugar cube',
+  mosquitoes: 'A mosquito over a flower pot whose plate holds standing water with larvae',
+};
+
+const sections = [
+  ['#signs', 'What it looks like'],
+  ['#treatment', 'Treatment'],
+  ['#price', 'Price'],
+  ['#prepare', 'Preparing'],
+  ['#premises', 'Homes and offices'],
+  ['#faq', 'Questions'],
+] as const;
 
 const tick =
   'M13.5 4.5 6.5 12 2.5 8.2';
@@ -54,7 +74,7 @@ const tick =
   ctaHref="#quote"
 >
   <section class="border-b border-line bg-surface">
-    <div class="wrap grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+    <div class="wrap grid gap-10 py-12 sm:py-16 lg:grid-cols-[1.4fr_1fr] lg:items-center">
       <div>
         <h1 class="text-3xl font-semibold sm:text-4xl lg:text-5xl">{pest.h1}</h1>
         {pest.intro.map((p, i) => (
@@ -68,18 +88,25 @@ const tick =
             See treatment options
           </a>
         </div>
+        <nav aria-label="On this page" class="mt-8">
+          <ul class="flex flex-wrap gap-2 text-sm">
+            {sections.map(([href, label]) => (
+              <li><a href={href} class="inline-block rounded-full bg-canvas px-3.5 py-1.5 text-ink-muted no-underline ring-1 ring-line hover:text-brand hover:ring-brand/40">{label}</a></li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
-      <div class="rounded-card border border-line bg-canvas p-6">
-        <h2 class="font-semibold">On this page</h2>
-        <ul class="mt-4 space-y-2 text-sm">
-          <li><a href="#signs" class="text-brand no-underline hover:underline">What the problem looks like</a></li>
-          <li><a href="#treatment" class="text-brand no-underline hover:underline">Treatment options</a></li>
-          <li><a href="#price" class="text-brand no-underline hover:underline">What affects the price</a></li>
-          <li><a href="#prepare" class="text-brand no-underline hover:underline">Preparing, and on the day</a></li>
-          <li><a href="#premises" class="text-brand no-underline hover:underline">Homes and offices</a></li>
-          <li><a href="#faq" class="text-brand no-underline hover:underline">Questions</a></li>
-        </ul>
+      <div class="order-first rounded-card border border-line bg-canvas p-4 lg:order-none">
+        <img
+          src={`/illo/${pest.slug}.svg`}
+          alt={illoAlt[pest.slug] ?? ''}
+          width="320"
+          height="220"
+          fetchpriority="high"
+          decoding="async"
+          class="mx-auto h-40 w-auto sm:h-auto sm:w-full sm:max-w-sm"
+        />
       </div>
     </div>
   </section>
@@ -128,7 +155,7 @@ const tick =
   <Section id="price">
     <div class="grid gap-10 lg:grid-cols-[1.3fr_1fr]">
       <div>
-        <h2 class="text-2xl font-semibold sm:text-3xl">What affects the price</h2>
+        <h2 class="flex items-center gap-3 text-2xl font-semibold sm:text-3xl"><Icon name="tag" size={28} class="text-brand" />What affects the price</h2>
         <p class="mt-4 text-ink-muted">
           We don't publish prices. The partner firm gives you a price after an inspection,
           or from what you tell it when the job is simple. These are the things it will
@@ -158,7 +185,7 @@ const tick =
     <h2 class="text-2xl font-semibold sm:text-3xl">How to prepare, and what happens on the day</h2>
     <div class="mt-8 grid gap-8 lg:grid-cols-2">
       <div class="rounded-card border border-line bg-surface p-6">
-        <h3 class="font-semibold">Before the visit</h3>
+        <h3 class="flex items-center gap-2.5 font-semibold"><Icon name="clipboard" size={22} class="text-brand" />Before the visit</h3>
         <ul class="mt-4 space-y-3">
           {pest.prepare.map((s) => (
             <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
@@ -169,7 +196,7 @@ const tick =
         </ul>
       </div>
       <div class="rounded-card border border-line bg-surface p-6">
-        <h3 class="font-semibold">On the day</h3>
+        <h3 class="flex items-center gap-2.5 font-semibold"><Icon name="calendar" size={22} class="text-brand" />On the day</h3>
         <ol class="mt-4 space-y-3">
           {pest.onTheDay.map((s, i) => (
             <li class="flex gap-3 text-sm leading-relaxed text-ink-muted">
@@ -197,7 +224,10 @@ const tick =
     <div class="mt-8 grid gap-5 md:grid-cols-2">
       {premises.map((p) => (
         <div class="rounded-card border border-line bg-surface p-6">
-          <h3 class="font-semibold">{p.label}</h3>
+          <div class="flex items-center gap-3">
+            <span class="flex size-11 items-center justify-center rounded-lg bg-sand/60 text-brand-dark"><Icon name={p.icon} /></span>
+            <h3 class="font-semibold">{p.label}</h3>
+          </div>
           <p class="mt-2 text-sm leading-relaxed text-ink-muted">{p.body}</p>
         </div>
       ))}
