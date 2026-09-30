@@ -47,4 +47,7 @@ build if any of those is missing.
 - The user sees the site and says to publish (brief: don't publish until then).
 - A partner is ready to take jobs. No partner names or terms on the site.
 - Send one test enquiry from the live domain; FormSubmit may ask to confirm the new site.
-- Confirm the operating entity shown in the footer and privacy policy (`company.json`: SKAP Waste Management Pte Ltd, as HomeToClean uses).
+
+The user approved publishing on 30 Sep 2026, and confirmed SKAP Waste Management Pte Ltd as the entity in the
+footer and privacy policy. They also asked to leave out two promises: "you don't pay us anything" and "we'll
+take it up with the firm". Don't add either back without asking.
