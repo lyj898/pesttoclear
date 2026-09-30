@@ -4,7 +4,7 @@
  *
  * - The subject carries the site and the page ("PestToClear – Termite control")
  *   so enquiries can be counted per site and per page from the inbox.
- * - `enquiry_submitted` fires once, only after FormSubmit confirms delivery.
+ * - `generate_lead` fires once, only after FormSubmit confirms delivery.
  * - The PDPA notice says exactly where the details go.
  *
  * One form per page: the script looks the form up by data attribute.
@@ -214,7 +214,7 @@ const optional = 'font-normal text-ink-faint';
 
           // The site's one key event. Genuine delivery only.
           if (typeof window.gtag === 'function') {
-            window.gtag('event', 'enquiry_submitted', {
+            window.gtag('event', 'generate_lead', {
               page_path: window.location.pathname,
               pest: data.Pest,
               property_type: data.Property,

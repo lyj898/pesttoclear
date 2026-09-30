@@ -10,7 +10,7 @@
 //   - pest pages have enough body copy, and no pest x town routes exist
 //   - banned copy (our technicians, prices, statistics, unsourced NEA claims)
 //   - any page mentioning NEA links an official nea.gov.sg source
-//   - the only custom GA4 event is enquiry_submitted; no button_click
+//   - the only custom GA4 event is generate_lead; no button_click
 //   - form subjects are "PestToClear – <page>"; the inbox appears only in the endpoint
 //   - no links to family sites in the header or footer; no rel="noreferrer" on them
 
@@ -232,12 +232,12 @@ const endpoint = company.formSubmit.endpoint;
 const inbox = endpoint.split('/').pop();
 for (const p of pages.values()) {
   const events = [...p.html.matchAll(/gtag\(\s*['"]event['"]\s*,\s*['"]([^'"]+)['"]/g)].map((m) => m[1]);
-  for (const e of events) if (e !== 'enquiry_submitted') err(`${p.route}: GA4 event "${e}" (enquiry_submitted is the only one)`);
-  if (/button_click|form_start/.test(p.html)) err(`${p.route}: contains button_click or form_start`);
+  for (const e of events) if (e !== 'generate_lead') err(`${p.route}: GA4 event "${e}" (generate_lead is the only one)`);
+  if (/button_click|form_start|form_submit/.test(p.html)) err(`${p.route}: contains button_click, form_start or form_submit`);
 
   const hasForm = /<form data-lead-form/.test(p.html);
   if (hasForm) {
-    if (events.length !== 1) err(`${p.route}: has the form but ${events.length} enquiry_submitted calls (expected 1)`);
+    if (events.length !== 1) err(`${p.route}: has the form but ${events.length} generate_lead calls (expected 1)`);
     const subject = (p.html.match(/(?:let|const|var) subject = ("[^"]*")/) ?? [])[1];
     const parsed = subject ? JSON.parse(subject) : '';
     if (!/^PestToClear – \S/.test(parsed)) err(`${p.route}: form subject is "${parsed}", expected "PestToClear – <page>"`);

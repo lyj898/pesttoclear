@@ -35,7 +35,7 @@ build if any of those is missing.
 - **NEA.** Say a firm is NEA-licensed only once that partner is checked, and with the official NEA source
   linked. Today the site states the law (vector control operators must be registered with NEA) and links
   NEA's page; it makes no claim about any firm. Any page that mentions NEA must link nea.gov.sg.
-- **One GA4 event:** `enquiry_submitted`, after FormSubmit confirms delivery. No `button_click`, no `form_start`.
+- **One GA4 event:** `generate_lead`, after FormSubmit confirms delivery. No `form_submit`, `button_click` or `form_start`. Family standard (PORTFOLIO.md).
   Mark it as the only key event in GA4.
 - **Form.** Subject is `PestToClear – <page>`. The PDPA line says the details go to the team behind Junk to
   Clear, which passes them to the partner who'll quote. The inbox address appears only in the endpoint.
