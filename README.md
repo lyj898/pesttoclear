@@ -35,8 +35,10 @@ build if any of those is missing.
 - **NEA.** Say a firm is NEA-licensed only once that partner is checked, and with the official NEA source
   linked. Today the site states the law (vector control operators must be registered with NEA) and links
   NEA's page; it makes no claim about any firm. Any page that mentions NEA must link nea.gov.sg.
-- **One GA4 event:** `generate_lead`, after FormSubmit confirms delivery. No `form_submit`, `button_click` or `form_start`. Family standard (PORTFOLIO.md).
-  Mark it as the only key event in GA4.
+- **One GA4 event:** `generate_lead`, after FormSubmit confirms delivery. The site's code sends no `form_submit`,
+  `button_click` or `form_start`. GA4's enhanced measurement (left on) does send `form_start` and `form_submit` by
+  itself; those are never key events. Star `generate_lead` as the only key event once it first fires.
+  Family standard (PORTFOLIO.md). GA4 property 557095049 in the Junktoclear account, measurement ID G-G75E0X6YB1.
 - **Form.** Subject is `PestToClear – <page>`. The PDPA line says the details go to the team behind Junk to
   Clear, which passes them to the partner who'll quote. The inbox address appears only in the endpoint.
 - **Family links.** None in the header or footer. The About page links Junk to Clear; the bed-bug page
