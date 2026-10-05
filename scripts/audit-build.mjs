@@ -229,13 +229,15 @@ for (const p of pages.values()) {
 }
 
 // --- family links -------------------------------------------------------------
-const FAMILY = /https?:\/\/(www\.)?(junktoclear\.com\.sg|hometoclean\.com|hometomoved\.com|skillstofix\.com|ourkampung\.com|swyftclear\.com|relocado\.asia)/;
+// One exception to "no sitewide links" (family revamp, 5 Oct 2026): the footer's
+// "Part of OurKampung" link to https://ourkampung.com/, marked rel="nofollow".
+const FAMILY = /https?:\/\/(www\.)?(junktoclear\.com\.sg|hometoclean\.com|hometomoved\.com|skillstofix\.com|ourkampung\.com|swyftclear\.com|relocado\.asia|aircontocool\.com|brokentofixed\.com|spacetoreno\.com)/;
+const OK_FOOTER = /<a href="https:\/\/ourkampung\.com\/" rel="nofollow"[^>]*>OurKampung<\/a>/;
 for (const p of pages.values()) {
-  const chrome = [
-    (p.html.match(/<header[\s\S]*?<\/header>/) ?? [''])[0],
-    (p.html.match(/<footer[\s\S]*?<\/footer>/) ?? [''])[0],
-  ].join('');
-  if (FAMILY.test(chrome)) err(`${p.route}: family-site link in the header or footer (no sitewide links)`);
+  const header = (p.html.match(/<header[\s\S]*?<\/header>/) ?? [''])[0];
+  const footer = (p.html.match(/<footer[\s\S]*?<\/footer>/) ?? [''])[0];
+  if (!OK_FOOTER.test(footer)) err(`${p.route}: footer lacks the "Part of OurKampung" link (rel="nofollow")`);
+  if (FAMILY.test(header + footer.replace(OK_FOOTER, ''))) err(`${p.route}: family-site link in the header or footer (only the OurKampung one is allowed)`);
   for (const [tag] of p.html.matchAll(/<a\b[^>]*>/g)) {
     if (FAMILY.test(tag) && /noreferrer/.test(tag)) err(`${p.route}: rel="noreferrer" on a family link hides the referral`);
   }
