@@ -43,8 +43,10 @@ build if any of those is missing.
   Clear, which passes them to the partner who'll quote. The endpoint is FormSubmit's hashed alias (5 Oct 2026), so no
   email address appears in any page; the audit fails if one does. If a send fails, say so and keep what the visitor
   typed: no phone, WhatsApp or email fallback (family rule, 2 Oct).
-- **Family links.** None in the header or footer. The About page links Junk to Clear; the bed-bug page
-  links its disposal service where a mattress has to go, saying the same team runs it. Never `rel="noreferrer"`.
+- **Family links.** The footer's only family link is "Part of OurKampung" → `https://ourkampung.com/`, with
+  `rel="nofollow"` (family revamp, 5 Oct 2026). About links Junk to Clear and `https://ourkampung.com/our-sites/`;
+  the bed-bug page links Junk to Clear's disposal service where a mattress has to go, saying the same team runs it.
+  No other header or footer links to sister sites. Never `rel="noreferrer"`.
 
 ## Before launch
 
