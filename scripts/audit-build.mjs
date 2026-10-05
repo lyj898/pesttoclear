@@ -263,11 +263,11 @@ for (const p of pages.values()) {
     err(`${p.route}: GA4 event without a form`);
   }
 
-  if (inbox?.includes('@')) {
-    const hits = p.html.split(inbox).length - 1;
-    const allowed = p.html.split(endpoint).length - 1;
-    if (hits > allowed) err(`${p.route}: destination inbox appears outside the FormSubmit endpoint`);
-  }
+  // The endpoint is FormSubmit's hashed alias, so no email address belongs
+  // anywhere in a built page, the form script included.
+  if (inbox?.includes('@')) err(`company.json: FormSubmit endpoint is a raw address; use the hashed alias`);
+  const emails = [...new Set(p.html.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+\.[A-Za-z.]{2,}/g) ?? [])];
+  if (emails.length) err(`${p.route}: email address in page source: ${emails.join(', ')}`);
   if (/href="tel:|href="https:\/\/wa\.me\/|href="mailto:/.test(p.html)) err(`${p.route}: phone, WhatsApp or email link (contact is form-only)`);
 
   const placeholders = [...new Set(p.html.match(/\[[A-Z][A-Z_0-9]{2,}\]/g) ?? [])];

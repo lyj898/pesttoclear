@@ -8,9 +8,9 @@
   "operatingHoursDisplay": "Mon-Fri 9am-6pm, Sat 9am-1pm. Closed Sunday and public holidays.",
   "businessModelStatement": "PestToClear is a matching service run by the team behind Junk to Clear. We pass your enquiry to a partner pest-control firm, which inspects, quotes and carries out the treatment.",
   "formSubmit": {
-    "endpoint": "https://formsubmit.co/ajax/lyj898@gmail.com",
+    "endpoint": "https://formsubmit.co/ajax/1aacc4903352135bb0fa38c3987d3abd",
     "subjectPrefix": "PestToClear – ",
-    "note": "Same endpoint as HomeToClean. FormSubmit may ask for a fresh activation the first time a new site posts to it, so send one test enquiry from the live domain and click the confirmation link. The address appears only here and in the compiled form script; the audit fails if it shows anywhere else."
+    "note": "FormSubmit's hashed alias, shared by the family (5 Oct 2026; the user confirmed it reaches their inbox). It keeps the inbox address out of the page source; the audit fails if any email address appears in a built page. FormSubmit may ask for activation the first time a new site posts to it: send one test from the live domain and click the confirmation email."
   },
   "nea": {
     "vcoUrl": "https://www.nea.gov.sg/our-services/pest-control/vector-control-operator",
