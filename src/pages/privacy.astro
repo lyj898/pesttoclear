@@ -3,8 +3,9 @@
  * /privacy/
  *
  * PDPA privacy policy. The section that matters most for a matching service is
- * disclosure: the details go to the team behind Junk to Clear, which passes
- * them to the partner firm that will quote. The form's notice says the same.
+ * disclosure: the details go to the OurKampung team, who pass them to the
+ * partner that will quote. The form's notice says the same. No company is
+ * named (independence, 6 Oct 2026).
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { company } from '../lib/data';
@@ -17,7 +18,7 @@ const { title, description } = meta(
   'How PestToClear collects, uses and discloses personal data under Singapore’s PDPA, including passing enquiries to partner pest-control firms.',
 );
 
-const lastUpdated = '30 September 2026';
+const lastUpdated = '6 October 2026';
 ---
 
 <BaseLayout title={title} description={description} path={path} crumbs={[{ name: 'Privacy policy', path }]}>
@@ -37,18 +38,18 @@ const lastUpdated = '30 September 2026';
       <p class="text-sm leading-relaxed">
         <strong class="font-semibold">The short version.</strong> {company.tradingName} is a
         matching service, not a pest-control company. When you send an enquiry, your details
-        go to the team behind {company.parentBrand}, which passes them to the partner
-        pest-control firm that will quote you. That is the point of the service, and the form
+        go to {company.team}, who pass them to the partner pest-control firm that will
+        quote you. That is the point of the service, and the form
         says so before you send it. We don’t sell your data.
       </p>
     </div>
 
     <h2>1. Who we are</h2>
     <p>
-      This site is run by the team behind {company.parentBrand}, operated by
-      <strong>{company.entityName}</strong>. In this policy, “we”, “us” and “our” mean that
-      team. {company.tradingName} introduces homes and businesses in Singapore to independent
-      pest-control firms. We don’t carry out pest control ourselves.
+      This site is run by <strong>the OurKampung team</strong>, which runs a family of
+      independent Singapore home sites and guides. In this policy, “we”, “us” and “our” mean
+      that team. {company.tradingName} introduces homes and businesses in Singapore to
+      independent pest-control firms. We don’t carry out pest control ourselves.
     </p>
 
     <h2>2. What we collect</h2>
@@ -79,8 +80,9 @@ const lastUpdated = '30 September 2026';
       When you send an enquiry, we pass your name, phone number and the details of the job
       to the partner pest-control firm that will quote you, so it can contact you directly.
       Occasionally we may pass it to a second firm, for example if the first can’t take the
-      job. We don’t sell personal data, and we don’t pass it to advertisers or unrelated
-      businesses.
+      job. If your enquiry is about disposal or clearance, such as getting rid of an infested
+      mattress, that partner can be Junk to Clear, a disposal company we refer jobs to. We
+      don’t sell personal data, and we don’t pass it to advertisers or unrelated businesses.
     </p>
     <p>
       Once a firm has your details, it is a separate organisation with its own obligations

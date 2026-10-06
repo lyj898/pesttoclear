@@ -1,8 +1,7 @@
 ---
 /**
- * Site footer. No links to the other family sites here: the family rules
- * forbid sitewide or footer links between them. The About page carries the
- * one link to Junk to Clear.
+ * Site footer. Its one family link is "Part of OurKampung" (nofollow, family
+ * revamp, 5 Oct 2026); no links to sister sites or to Junk to Clear here.
  */
 import Wordmark from './Wordmark.astro';
 import { company, pests } from '../lib/data';
@@ -44,14 +43,14 @@ const link = 'text-sm text-ink-muted no-underline hover:text-brand';
 
     <div class="mt-12 border-t border-line pt-8 text-sm leading-relaxed text-ink-muted">
       <p>
-        {company.tradingName} is run by the team behind {company.parentBrand}.
+        {company.tradingName} is run by {company.team}.
         Treatment is carried out by independent partner pest-control firms.
       </p>
       <p class="mt-1">{company.operatingHoursDisplay}</p>
       <p class="mt-4">
         Part of <a href="https://ourkampung.com/" rel="nofollow" class="font-medium text-brand underline underline-offset-2">OurKampung</a>
       </p>
-      <p class="mt-6 text-2xs text-ink-faint">&copy; {year} {company.entityName}.</p>
+      <p class="mt-6 text-2xs text-ink-faint">&copy; {year} {company.tradingName}.</p>
     </div>
   </div>
 </footer>

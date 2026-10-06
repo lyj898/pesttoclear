@@ -123,8 +123,10 @@ for (const p of pages.values()) {
       const types = nodes.map((n) => n['@type']);
       const orgs = types.filter((t) => t === 'Organization').length;
       if (orgs !== 1) err(`${p.route}: ${orgs} Organization nodes; there must be exactly one`);
+      const org = nodes.find((n) => n['@type'] === 'Organization');
+      if (org?.parentOrganization?.url !== 'https://ourkampung.com/') err(`${p.route}: Organization lacks parentOrganization OurKampung`);
       const all = JSON.stringify(parsed);
-      for (const banned of ['LocalBusiness', 'AggregateRating', '"Review"', '"offers"']) {
+      for (const banned of ['LocalBusiness', 'AggregateRating', '"Review"', '"offers"', 'legalName', 'foundingDate', 'sameAs']) {
         if (all.includes(banned)) err(`${p.route}: JSON-LD contains ${banned}`);
       }
       const depth = p.route.split('/').filter(Boolean).length;
@@ -219,12 +221,12 @@ for (const p of pages.values()) {
 // Every image must exist in the build and carry an alt attribute (empty for
 // decorative ones, which the illustrations on the pest cards are).
 for (const p of pages.values()) {
-  for (const [tag] of p.html.matchAll(/<img[^>]*>/g)) {
+  for (const [tag] of p.html.matchAll(/<img\b[^>]*>/g)) {
     const src = (tag.match(/src="([^"]+)"/) ?? [])[1];
     if (!src) err(`${p.route}: <img> without src`);
     else if (src.startsWith('/') && !existsSync(join(dist, src.split('?')[0]))) err(`${p.route}: image ${src} is not in the build`);
-    if (!/alt="/.test(tag)) err(`${p.route}: <img> without alt: ${src}`);
-    if (!/width="/.test(tag) || !/height="/.test(tag)) err(`${p.route}: <img> without width and height (layout shift): ${src}`);
+    if (!/\balt="/.test(tag)) err(`${p.route}: <img> without alt: ${src}`);
+    if (!/\bwidth="/.test(tag) || !/\bheight="/.test(tag)) err(`${p.route}: <img> without width and height (layout shift): ${src}`);
   }
 }
 
@@ -257,7 +259,7 @@ for (const p of pages.values()) {
     const subject = (p.html.match(/(?:let|const|var) subject = ("[^"]*")/) ?? [])[1];
     const parsed = subject ? JSON.parse(subject) : '';
     if (!/^PestToClear – \S/.test(parsed)) err(`${p.route}: form subject is "${parsed}", expected "PestToClear – <page>"`);
-    if (!/team behind Junk to Clear/.test(textOf(p.html))) err(`${p.route}: form without the PDPA notice naming the team behind Junk to Clear`);
+    if (!/Your details go to the OurKampung team, who pass them to the partner who.ll quote for the job/.test(textOf(p.html))) err(`${p.route}: form without the family PDPA notice ("Your details go to the OurKampung team...")`);
     if ((p.html.match(/<form data-lead-form/g) ?? []).length > 1) err(`${p.route}: more than one enquiry form`);
   } else if (events.length) {
     err(`${p.route}: GA4 event without a form`);

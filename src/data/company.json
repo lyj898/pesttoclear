@@ -1,12 +1,13 @@
 {
-  "entityName": "SKAP Waste Management Pte Ltd",
   "tradingName": "PestToClear",
-  "parentBrand": "Junk to Clear",
-  "parentBrandUrl": "https://junktoclear.com.sg",
-  "yearEstablished": 2009,
+  "team": "the OurKampung team",
+  "parentOrganization": {
+    "name": "OurKampung",
+    "url": "https://ourkampung.com/"
+  },
   "siteUrl": "https://pesttoclear.com",
   "operatingHoursDisplay": "Mon-Fri 9am-6pm, Sat 9am-1pm. Closed Sunday and public holidays.",
-  "businessModelStatement": "PestToClear is a matching service run by the team behind Junk to Clear. We pass your enquiry to a partner pest-control firm, which inspects, quotes and carries out the treatment.",
+  "businessModelStatement": "PestToClear is a pest-control matching service run by the OurKampung team. We pass your enquiry to a partner pest-control firm, which inspects, quotes and carries out the treatment.",
   "formSubmit": {
     "endpoint": "https://formsubmit.co/ajax/1aacc4903352135bb0fa38c3987d3abd",
     "subjectPrefix": "PestToClear – ",

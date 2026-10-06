@@ -27,4 +27,15 @@ export const BANNED_COPY = [
     re: /\b(testimonial|5[- ]star|rated \d|\d(\.\d)? stars?)\b/i,
     why: 'looks like a review or rating (none have been collected)',
   },
+  {
+    // Independence (6 Oct 2026): no company runs the family, and nothing of
+    // SKAP's or Junk to Clear's is borrowed.
+    re: /\bSKAP\b|team behind Junk to Clear|\btrading (name|as)\b|\bestablished (in )?2009\b|\bsince 2009\b/i,
+    why: 'names SKAP or borrows from Junk to Clear (independence brief: run by the OurKampung team)',
+  },
+  {
+    // Junk to Clear is a company we refer jobs to, never ours or the same team.
+    re: /Junk to Clear[^.]{0,80}\b(same team|sister|our team|run by us)\b|\b(our|sister) Junk to Clear\b/i,
+    why: 'describes Junk to Clear as ours or the same team (it is a disposal company we refer jobs to)',
+  },
 ];

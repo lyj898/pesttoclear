@@ -40,16 +40,15 @@ export interface Pest {
   afterwards: string;
   premises: Premises;
   faqs: Faq[];
-  /** Show the one-line pointer to Junk to Clear for disposing of infested furniture. */
+  /** Show the one-line pointer to Junk to Clear, a disposal company we refer jobs to, for infested furniture. */
   disposal?: boolean;
 }
 
 export interface Company {
-  entityName: string;
   tradingName: string;
-  parentBrand: string;
-  parentBrandUrl: string;
-  yearEstablished: number;
+  /** Who runs the site, as a phrase: "the OurKampung team". No company is named (independence, 6 Oct 2026). */
+  team: string;
+  parentOrganization: { name: string; url: string };
   siteUrl: string;
   operatingHoursDisplay: string;
   businessModelStatement: string;

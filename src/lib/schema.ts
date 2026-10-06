@@ -20,9 +20,14 @@ export function organizationNode(): JsonLdNode {
     '@type': 'Organization',
     '@id': ORG_ID,
     name: company.tradingName,
-    legalName: company.entityName,
     url: `${ORIGIN}/`,
     description: company.businessModelStatement,
+    // The family's mother site. No company runs the family (independence, 6 Oct 2026).
+    parentOrganization: {
+      '@type': 'Organization',
+      name: company.parentOrganization.name,
+      url: company.parentOrganization.url,
+    },
     // The inbox is deliberately not published. Contact is form-only.
     contactPoint: {
       '@type': 'ContactPoint',
